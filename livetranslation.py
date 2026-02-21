@@ -1,53 +1,54 @@
-# import speech_recognition as sr
-# from googletrans import Translator
-# import pyttsx3
+import speech_recognition as sr
+from googletrans import Translator
+import pyttsx3
 
-# # Initialize Translator and Speech Engine
-# translator = Translator()
-# engine = pyttsx3.init()
 
-# # Function to Translate Hindi to English
-# def translate_hindi_to_english(text):
-#     translated = translator.translate(text, src='hi', dest='en')
-#     return translated.text
+translator = Translator()
+engine = pyttsx3.init()
 
-# # Function to Speak Text
-# def speak_text(text):
-#     engine.say(text)
-#     engine.runAndWait()
 
-# # Function for Live Translation
-# def live_meeting_translation():
-#     recognizer = sr.Recognizer()
-#     mic = sr.Microphone()
+def translate_hindi_to_english(text):
+    translated = translator.translate(text, src='hi', dest='en')
+    return translated.text
 
-#     with mic as source:
-#         print("🔊 Listening for Hindi speech in live meeting... (Press Ctrl+C to stop)")
-#         recognizer.adjust_for_ambient_noise(source)
 
-#         while True:
-#             try:
-#                 # Step 1: Listen to speech continuously
-#                 audio = recognizer.listen(source, timeout=5)
+def speak_text(text):
+    engine.say(text)
+    engine.runAndWait()
 
-#                 # Step 2: Convert Speech to Hindi Text
-#                 hindi_text = recognizer.recognize_google(audio, language="hi-IN")
-#                 print(f"🎤 Hindi Speech: {hindi_text}")
 
-#                 # Step 3: Translate to English
-#                 translated_text = translate_hindi_to_english(hindi_text)
-#                 print(f"🔄 Translated (English): {translated_text}")
+def live_meeting_translation():
+    recognizer = sr.Recognizer()
+    mic = sr.Microphone()
 
-#                 # Step 4: Speak Out Translated Text
-#                 speak_text(translated_text)
+    with mic as source:
+        print(" Listening for Hindi speech in live meeting... (Press Ctrl+C to stop)")
+        recognizer.adjust_for_ambient_noise(source)
 
-#             except sr.UnknownValueError:
-#                 print("⚠️ Could not understand the speech.")
-#             except sr.RequestError:
-#                 print("⚠️ Speech recognition API is unavailable.")
-#             except KeyboardInterrupt:
-#                 print("\n🔴 Translation Stopped.")
-#                 break
+        while True:
+            try:
+                
+                audio = recognizer.listen(source, timeout=5)
 
-# # Start Live Translation
-# live_meeting_translation()
+               
+                hindi_text = recognizer.recognize_google(audio, language="hi-IN")
+                print(f" Hindi Speech: {hindi_text}")
+
+                
+                translated_text = translate_hindi_to_english(hindi_text)
+                print(f" Translated (English): {translated_text}")
+
+                
+                speak_text(translated_text)
+
+            except sr.UnknownValueError:
+                print(" Could not understand the speech.")
+            except sr.RequestError:
+                print(" Speech recognition API is unavailable.")
+            except KeyboardInterrupt:
+                print("\n Translation Stopped.")
+                break
+
+
+live_meeting_translation()
+
