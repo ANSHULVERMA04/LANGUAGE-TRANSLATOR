@@ -16,16 +16,16 @@ def live_meeting_translation():
         while True:
             try:
               
-                print("🎤 Speak now...")
+                print(" Speak now...")
                 audio = recognizer.listen(source, phrase_time_limit=5)
 
                 
                 hindi_text = recognizer.recognize_google(audio, language="hi-IN")
-                print(f"🗣️ Hindi Speech: {hindi_text}")
+                print(f" Hindi Speech: {hindi_text}")
 
                
                 translated_text = translator.translate(hindi_text, src="hi", dest="en").text
-                print(f"🔄 Translated (English): {translated_text}")
+                print(f" Translated (English): {translated_text}")
 
                 
                 tts = gTTS(text=translated_text, lang="en")
@@ -33,13 +33,14 @@ def live_meeting_translation():
                 os.system("start response.mp3")  
 
             except sr.UnknownValueError:
-                print("⚠️ Could not understand the speech.")
+                print(" Could not understand the speech.")
             except sr.RequestError:
-                print("⚠️ Speech recognition API is unavailable.")
+                print(" Speech recognition API is unavailable.")
             except KeyboardInterrupt:
-                print("\n🔴 Translation Stopped.")
+                print("\n Translation Stopped.")
                 break
 
 
 live_meeting_translation()
+
 
